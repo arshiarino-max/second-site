@@ -1,0 +1,677 @@
+```html
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#030711">
+<title>یه کادوی کوچیک برات 💙</title>
+
+<style>
+:root {
+    --bg: #030711;
+    --panel: #091629;
+    --blue: #168cff;
+    --cyan: #70d7ff;
+    --text: #eff8ff;
+    --muted: #9bb3ce;
+    --border: #173e68;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: Tahoma, Arial, sans-serif;
+    overflow-x: hidden;
+}
+
+button {
+    font-family: inherit;
+}
+
+#sky {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.ambient {
+    position: fixed;
+    width: 350px;
+    height: 350px;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: .15;
+    pointer-events: none;
+}
+
+.ambient.one {
+    background: #087cff;
+    top: -130px;
+    right: -100px;
+}
+
+.ambient.two {
+    background: #00d5ff;
+    bottom: -150px;
+    left: -120px;
+}
+
+main {
+    position: relative;
+    z-index: 1;
+}
+
+section {
+    width: min(850px, 90%);
+    margin-inline: auto;
+}
+
+.hero {
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px 10px;
+}
+
+.eyebrow {
+    border: 1px solid var(--border);
+    color: var(--cyan);
+    background: #071322;
+    padding: 11px 18px;
+    border-radius: 50px;
+    font-size: 12px;
+    letter-spacing: 1px;
+    box-shadow: 0 0 25px #168cff12;
+}
+
+h1 {
+    font-size: clamp(38px, 8vw, 76px);
+    line-height: 1.5;
+    margin: 28px 0 12px;
+    letter-spacing: -2px;
+}
+
+h1 span {
+    color: var(--cyan);
+    text-shadow: 0 0 35px #168cff90;
+}
+
+.intro {
+    max-width: 460px;
+    color: var(--muted);
+    line-height: 2.3;
+    font-size: 15px;
+}
+
+.gift-stage {
+    width: 210px;
+    height: 210px;
+    display: grid;
+    place-items: center;
+    margin: 25px 0;
+    position: relative;
+}
+
+.gift-ring {
+    position: absolute;
+    inset: 15px;
+    border: 1px solid #168cff55;
+    border-radius: 50%;
+    animation: spin 15s linear infinite;
+}
+
+.gift-ring::before,
+.gift-ring::after {
+    content: "";
+    position: absolute;
+    width: 9px;
+    height: 9px;
+    background: var(--cyan);
+    border-radius: 50%;
+    box-shadow: 0 0 20px var(--blue);
+}
+
+.gift-ring::before {
+    top: 15px;
+    left: 30px;
+}
+
+.gift-ring::after {
+    bottom: 20px;
+    right: 25px;
+}
+
+.gift {
+    font-size: 100px;
+    cursor: pointer;
+    user-select: none;
+    filter: drop-shadow(0 0 25px #168cff80);
+    animation: float 3s ease-in-out infinite;
+    transition: transform .3s;
+}
+
+.gift:hover {
+    transform: scale(1.12);
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+@keyframes float {
+    0%, 100% { translate: 0 0; }
+    50% { translate: 0 -12px; }
+}
+
+.primary,
+.secondary {
+    cursor: pointer;
+    border: 1px solid #75d5ff;
+    color: white;
+    background: linear-gradient(120deg, #0874d1, #123c91);
+    padding: 16px 28px;
+    border-radius: 50px;
+    font-size: 15px;
+    box-shadow: 0 0 28px #168cff35;
+    transition: .25s;
+}
+
+.primary:hover,
+.secondary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 38px #168cff85;
+}
+
+.hint {
+    color: #6f8ba9;
+    font-size: 11px;
+    margin-top: 18px;
+}
+
+.panel {
+    display: none;
+    opacity: 0;
+    transform: translateY(25px);
+    background: linear-gradient(145deg, #0b1a2d, #050b15);
+    border: 1px solid var(--border);
+    border-radius: 25px;
+    padding: clamp(24px, 6vw, 48px);
+    margin: 25px auto 70px;
+    box-shadow: 0 20px 70px #0007, 0 0 35px #168cff10;
+}
+
+.panel.visible {
+    display: block;
+    animation: reveal .9s forwards;
+}
+
+@keyframes reveal {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.label {
+    color: var(--cyan);
+    font-size: 12px;
+    letter-spacing: 2px;
+}
+
+h2 {
+    font-size: clamp(25px, 5vw, 36px);
+    line-height: 1.8;
+    color: var(--cyan);
+    margin: 15px 0;
+}
+
+.rule {
+    width: 65px;
+    height: 3px;
+    background: var(--blue);
+    box-shadow: 0 0 15px var(--blue);
+    border-radius: 10px;
+    margin: 20px 0;
+}
+
+.message {
+    font-size: 15px;
+    line-height: 3;
+    color: #d5e4f5;
+}
+
+.message strong {
+    color: var(--cyan);
+}
+
+.cards-title {
+    text-align: center;
+    margin: 65px 0 25px;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
+    gap: 14px;
+    margin-bottom: 65px;
+}
+
+.card {
+    background: #081423;
+    border: 1px solid #142e4c;
+    border-radius: 18px;
+    padding: 25px 14px;
+    text-align: center;
+    transition: .3s;
+}
+
+.card:hover {
+    transform: translateY(-7px);
+    border-color: var(--blue);
+    box-shadow: 0 10px 30px #168cff16;
+}
+
+.card .emoji {
+    font-size: 30px;
+}
+
+.card h3 {
+    color: #9edfff;
+    font-size: 15px;
+}
+
+.card p {
+    color: var(--muted);
+    line-height: 2.1;
+    font-size: 12px;
+}
+
+.final {
+    text-align: center;
+    padding: 35px 10px 80px;
+}
+
+.final-heart {
+    font-size: 48px;
+    display: inline-block;
+    filter: drop-shadow(0 0 20px #168cff);
+    animation: pulse 1.8s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.14); }
+}
+
+.final p {
+    color: var(--muted);
+    line-height: 2.5;
+}
+
+.extra {
+    display: none;
+    color: var(--cyan);
+    line-height: 2.7;
+    margin-top: 25px;
+    animation: reveal .8s forwards;
+}
+
+.extra.visible {
+    display: block;
+}
+
+footer {
+    border-top: 1px solid #14243a;
+    text-align: center;
+    color: #637b97;
+    padding: 25px 10px;
+    font-size: 11px;
+}
+
+#toast {
+    position: fixed;
+    bottom: 25px;
+    left: 50%;
+    transform: translate(-50%, 20px);
+    background: #0b2038;
+    border: 1px solid #168cff;
+    padding: 13px 20px;
+    border-radius: 30px;
+    opacity: 0;
+    transition: .3s;
+    pointer-events: none;
+    z-index: 5;
+    white-space: nowrap;
+    font-size: 13px;
+}
+
+#toast.show {
+    opacity: 1;
+    transform: translate(-50%, 0);
+}
+
+@media (max-width: 500px) {
+    .gift-stage {
+        width: 170px;
+        height: 170px;
+    }
+
+    .gift {
+        font-size: 85px;
+    }
+
+    .message {
+        font-size: 14px;
+        line-height: 2.7;
+    }
+
+    .cards {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: .01ms !important;
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="sky"></canvas>
+<div class="ambient one"></div>
+<div class="ambient two"></div>
+
+<main>
+    <section class="hero">
+
+        <div class="eyebrow">A LITTLE SURPRISE · 💙</div>
+
+        <h1>
+            یه کادوی کوچیک<br>
+            <span>برات</span>
+        </h1>
+
+        <p class="intro">
+            یه چیز کوچیک درست کردم برات :)<br>
+            بیا ببین خوشت میاد یا نه 😂
+        </p>
+
+        <div class="gift-stage">
+            <div class="gift-ring"></div>
+            <div class="gift" onclick="openGift()">🎁</div>
+        </div>
+
+        <button class="primary" onclick="openGift()">
+            بازش کن دیگه 💙
+        </button>
+
+        <div class="hint">یه کلیک کوچولو کافیه ↓</div>
+    </section>
+
+    <section class="panel" id="letter">
+
+        <div class="label">JUST FOR YOU · 01</div>
+        <h2>روز دختر مبارک بهت 💙</h2>
+        <div class="rule"></div>
+
+        <div class="message">
+            گفتم امروز یه چیز کوچیک برات درست کنم
+            که روزت رو تبریک بگم :)
+            <br><br>
+
+            امیدوارم همیشه حالت خوب باشه، به چیزایی که
+            دوست داری برسی و کلی اتفاق خوب برات بیفته.
+            اگه هم بعضی روزا خسته بودی یا همه‌چی اون‌جوری
+            که می‌خواستی پیش نرفت، یادت نره که لازم نیست
+            همیشه همه‌چی عالی باشه.
+            <br><br>
+
+            راستی، امیدوارم امروز یه لبخند کوچیک
+            آورده باشم رو لبت :)
+            <br><br>
+
+            خلاصه که روزت مبارک، امیدوارم کلی بخندی
+            و بهت خوش بگذره. مراقب خودتم باش 🌷💙
+        </div>
+
+        <button class="secondary" onclick="showExtra()">
+            یه چیز دیگه هم هست 😂
+        </button>
+
+        <div class="extra" id="extra">
+            خب دیگه، همین دیگه 😂💙
+            <br>
+            فقط گفتم یه تبریک معمولی نباشه،
+            یه کم متفاوت‌تر باشه :)
+            <br>
+            امیدوارم خوشت اومده باشه 🌷
+        </div>
+    </section>
+
+    <section>
+        <div class="cards-title">
+            <div class="label">SOME LITTLE WISHES</div>
+            <h2>چند تا آرزوی کوچیک برای تو ✨</h2>
+        </div>
+
+        <div class="cards">
+            <article class="card">
+                <div class="emoji">🌷</div>
+                <h3>روزای قشنگ</h3>
+                <p>روزایی که از صبحش حس خوبی داشته باشی.</p>
+            </article>
+
+            <article class="card">
+                <div class="emoji">☀️</div>
+                <h3>حال خوب</h3>
+                <p>کلی خنده و اتفاق خوب که غافلگیرت کنه.</p>
+            </article>
+
+            <article class="card">
+                <div class="emoji">⭐</div>
+                <h3>هدف‌هات</h3>
+                <p>امیدوارم به چیزایی که می‌خوای برسی.</p>
+            </article>
+
+            <article class="card">
+                <div class="emoji">🦋</div>
+                <h3>خودت باش</h3>
+                <p>همون‌جوری که راحتی و خود واقعی‌تی.</p>
+            </article>
+        </div>
+    </section>
+
+    <section class="final">
+        <div class="final-heart">💙</div>
+        <h2>خلاصه که...</h2>
+        <p>
+            روز دختر مبارک :)<br>
+            امیدوارم امروز یه لبخند کوچیک زده باشی.
+        </p>
+        <button class="secondary" onclick="backToTop()">
+            برگردیم اول صفحه ↑
+        </button>
+    </section>
+
+    <footer>
+        یه تبریک کوچیک، همین :) 💙
+    </footer>
+</main>
+
+<div id="toast">کادوت باز شد 💙</div>
+
+<script>
+/* Gift interaction */
+
+let giftOpened = false;
+
+function openGift() {
+    const letter = document.getElementById("letter");
+
+    if (!giftOpened) {
+        giftOpened = true;
+        letter.classList.add("visible");
+        showToast("کادوت باز شد 💙");
+    }
+
+    setTimeout(() => {
+        letter.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+    }, 100);
+
+    burst(window.innerWidth / 2, window.innerHeight / 2);
+}
+
+function showExtra() {
+    const extra = document.getElementById("extra");
+    extra.classList.add("visible");
+    showToast("اینم از سورپرایز دوم 😂💙");
+    burst(window.innerWidth / 2, window.innerHeight / 2);
+}
+
+function backToTop() {
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+
+let toastTimer;
+
+function showToast(text) {
+    const toast = document.getElementById("toast");
+    toast.textContent = text;
+    toast.classList.add("show");
+
+    clearTimeout(toastTimer);
+
+    toastTimer = setTimeout(() => {
+        toast.classList.remove("show");
+    }, 2200);
+}
+
+/* Animated blue particles */
+
+const canvas = document.getElementById("sky");
+const ctx = canvas.getContext("2d");
+
+let width = 0;
+let height = 0;
+let particles = [];
+let bursts = [];
+
+function resizeCanvas() {
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+    width = window.innerWidth;
+    height = window.innerHeight;
+
+    canvas.width = width * dpr;
+    canvas.height = height * dpr;
+
+    canvas.style.width = width + "px";
+    canvas.style.height = height + "px";
+
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    const count = Math.min(65, Math.floor(width / 8));
+
+    particles = Array.from({ length: count }, () => ({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        r: Math.random() * 1.8 + .4,
+        speed: Math.random() * .35 + .1,
+        alpha: Math.random() * .7 + .15
+    }));
+}
+
+function burst(x, y) {
+    for (let i = 0; i < 28; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const speed = Math.random() * 3 + 1;
+
+        bursts.push({
+            x,
+            y,
+            vx: Math.cos(angle) * speed,
+            vy: Math.sin(angle) * speed,
+            life: 1,
+            size: Math.random() * 3 + 1
+        });
+    }
+
+    if (bursts.length > 180) {
+        bursts = bursts.slice(-180);
+    }
+}
+
+function animate() {
+    ctx.clearRect(0, 0, width, height);
+
+    for (const p of particles) {
+        p.y -= p.speed;
+
+        if (p.y < -5) {
+            p.y = height + 5;
+            p.x = Math.random() * width;
+        }
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(93, 190, 255, ${p.alpha})`;
+        ctx.shadowBlur = 10;
+        ctx.shadowColor = "#168cff";
+        ctx.fill();
+    }
+
+    ctx.shadowBlur = 0;
+
+    bursts = bursts.filter(p => p.life > 0);
+
+    for (const p of bursts) {
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vy += .025;
+        p.life -= .018;
+
+        ctx.globalAlpha = Math.max(0, p.life);
+        ctx.fillStyle = "#70d7ff";
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fill();
+    }
+
+    ctx.globalAlpha = 1;
+    requestAnimationFrame(animate);
+}
+
+window.addEventListener("resize", resizeCanvas);
+
+resizeCanvas();
+animate();
+</script>
+
+</body>
+</html>
+```
